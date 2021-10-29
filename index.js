@@ -21,13 +21,13 @@ async function run() {
         await client.connect();
 
         const database = client.db("tourism");
-        const servicesCollection = database.collection("eventspotscost");
+        const eventsCollection = database.collection("events");
 
         // GET API
         app.get('/events', async (req, res) => {
-            const cursor = servicesCollection.find({});
-            // const services = await cursor.toArray();
-            res.send(services);
+            const cursor = eventsCollection.find({});
+            const events = await cursor.toArray();
+            res.send(events);
         });
 
     }
