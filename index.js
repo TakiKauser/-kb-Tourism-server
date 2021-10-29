@@ -30,6 +30,15 @@ async function run() {
             res.send(events);
         });
 
+        // GET Single Event
+        app.get('/events/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const event = await eventsCollection.findOne(query);
+            console.log(event);
+            res.json(event);
+        });
+
     }
     finally {
         //   await client.close();
