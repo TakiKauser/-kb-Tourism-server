@@ -54,6 +54,12 @@ async function run() {
             res.send(result);
         });
 
+        // GET all Bookings
+        app.get('/manageAllBookings', async (req, res) => {
+            const result = await bookingCollection.find({}).toArray();
+            res.send(result);
+        });
+
     }
     finally {
         //   await client.close();
