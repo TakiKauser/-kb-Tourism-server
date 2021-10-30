@@ -41,8 +41,16 @@ async function run() {
         });
 
         // POST Booking
-        app.post('/event/booking', async(req, res)=>{
+        app.post('/event/booking', async (req, res) => {
             const result = await bookingCollection.insertOne(req.body);
+            res.send(result);
+        });
+
+        // GET individual Bookings
+        app.get('/myBookings/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: { $regex: email } };
+            const result = await bookingCollection.find(query).toArray();
             res.send(result);
         });
 
