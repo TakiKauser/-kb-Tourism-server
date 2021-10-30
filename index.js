@@ -24,7 +24,7 @@ async function run() {
         const eventsCollection = database.collection("events");
         const bookingCollection = database.collection("bookings");
 
-        // GET API
+        // GET Events
         app.get('/events', async (req, res) => {
             const cursor = eventsCollection.find({});
             const events = await cursor.toArray();
@@ -38,6 +38,14 @@ async function run() {
             const event = await eventsCollection.findOne(query);
             console.log(event);
             res.json(event);
+        });
+
+        // POST Event
+        app.post('/event', async (req, res) => {
+            console.log(req.body);
+            const result = await eventsCollection.insertOne(req.body);
+            console.log(result);
+            res.send(result);
         });
 
         // POST Booking
