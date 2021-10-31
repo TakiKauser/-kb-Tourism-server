@@ -68,6 +68,22 @@ async function run() {
             res.send(result);
         });
 
+        // PUT Bookings Status
+        app.put('/manageAllBookings/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: "approved"
+                },
+            };
+            const result = await bookingCollection.updateOne(filter, updateDoc, options);
+            console.log(result);
+            res.json(result);
+        })
+
+
         // DELETE Booking
         app.delete('/myBookings/:id', async (req, res) => {
             const id = req.params.id;
